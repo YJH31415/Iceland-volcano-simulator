@@ -1,46 +1,36 @@
 # YJH's Iceland Volcano Simulator
 
-A web interface prototype for an Eyjafjallajökull (2010) volcanic ash dispersion simulator.
+에이야프얄라요쿨 화산재의 3차원 확산을 연구하기 위한 웹 시뮬레이터 프로젝트입니다.
 
-## Live site
+## 웹 인터페이스
 
-After enabling GitHub Pages, the site will be available at:
+- 홈 화면에서 재현 모드 / 실험 모드 선택
+- 다크 네이비 + 오렌지 포인트의 연구실 스타일 UI
+- 왼쪽 제어 패널과 오른쪽 MapLibre 지도 레이아웃
+- 2010년 시뮬레이션 시간 타임라인, 재생·일시정지·초기화 및 배속
+- 실험 변수 입력 UI: 질량 분출률, 분출 기둥 높이, 난류 확산 계수
+- 아이슬란드 화산 및 런던·파리·프랑크푸르트·오슬로·스톡홀름 위치
+- 계산 결과가 연결되지 않은 농도·질량·경보는 N/A / 데이터 대기로 표시
 
-https://yjh31415.github.io/Iceland-volcano-simulator/
+## GitHub Pages
 
-## Current implementation
+저장소 Settings → Pages → Deploy from a branch → `main` / `/(root)`를 선택합니다.
 
-- Responsive glass-style scientific dashboard
-- MapLibre GL JS map centered on Iceland and Europe
-- Eyjafjallajökull vent marker and five city markers
-- Timeline controls and playback speed selector
-- City alert panel and the project's five concentration thresholds
-- Experiment parameter controls
-- Demo JSON and chart PNG export
+사이트: https://yjh31415.github.io/Iceland-volcano-simulator/
 
-## Scientific status — read before interpreting the display
+## 현재 구현 범위 및 과학적 한계
 
-This repository currently contains the **front-end prototype only**. The ash plume shown on the map is generated illustrative geometry for testing the interface. It is **not** a measured 2010 ash cloud, a forecast, or the output of a validated atmospheric model. Concentration metrics are intentionally shown as unavailable until a physical solver is connected.
+현재 `index.html`은 프론트엔드 프로토타입입니다. 지도는 지리적 위치를 표시하며, 화산재 농도장이나 경보를 계산하지 않습니다. 재생 타임라인은 UI 동작 확인용이고 실제 사건 데이터와 동기화된 재현 계산이 아닙니다. 실험 슬라이더 값도 수치 모델에 연결되어 있지 않습니다.
 
-The planned scientific implementation is a 3-D Eulerian, multi-size-bin concentration model using conservative finite-volume transport, meteorological reanalysis fields, gravitational settling, turbulent diffusion, and wet/dry deposition. The model will require independently verified eruption-source data and validation against published observations and established models before its outputs can be described as scientific results.
+실제 재현을 위해서는 검증된 2010년 분출원 자료, 과거 3차원 기상장, 입경별 침강·확산·제거 물리, 질량 보존 유한체적법(Eulerian solver), 검증 및 불확실성 평가가 별도로 구현되어야 합니다. 데이터가 준비되기 전에는 임의의 농도나 도시 경보를 사실처럼 표시하지 않습니다.
 
-## Run locally
+## 기술 구성
 
-This is a static site. Open `index.html` in a browser, or serve the repository directory:
+- Frontend: HTML, CSS, JavaScript
+- Map: MapLibre GL JS
+- Basemap: CARTO dark-matter style
+- 지도 타일 및 글꼴 로딩에는 인터넷 연결이 필요합니다.
 
-```bash
-python -m http.server 8000
-```
+## License
 
-Then visit http://localhost:8000.
-
-## Deployment
-
-In GitHub, open **Settings → Pages**, select **Deploy from a branch**, choose **main** and **/(root)**, then save. The included `.nojekyll` file is compatible with root-based static hosting.
-
-## External libraries
-
-- MapLibre GL JS
-- Google Fonts
-
-The map style is loaded from the MapLibre demo tile service. A production deployment should select a suitable tile provider and review its usage terms.
+연구 및 교육 목적의 개발 프로젝트입니다. 데이터 출처와 모델 검증 정보는 구현 단계에서 별도로 명시합니다.
